@@ -1,0 +1,79 @@
+// 1.	Solving problems using array functions on rest countries data (https://restcountries.com/v3.1/all).
+// a.	Get all the countries from Asia continent /region using Filter function
+// Fetch the data from the API
+fetch('https://restcountries.com/v3.1/all')
+  .then(response => response.json())
+  .then(data => {
+    // Use filter to get countries from Asia
+    const asiaCountries = data.filter(country => country.region.includes('Asia'));
+
+    console.log(asiaCountries);
+  })
+  .catch(error => console.error('Error fetching data:', error));
+
+ // b.	Get all the countries with a population of less than 2 lakhs using Filter function
+
+ fetch('https://restcountries.com/v3.1/all')
+ .then(response => response.json())
+ .then (data => {
+    const ispopulation = data.filter(country => {
+
+        return country.population < 200000
+    })
+    console.log(ispopulation)
+ })
+
+ //c.	Print the following details name, capital, flag, using forEach function
+
+ // Fetch the data from the API
+fetch('https://restcountries.com/v3.1/all')
+.then(response => response.json())
+.then(data => {
+  // Iterate over each country and print details
+  data.forEach(country => {
+    
+    const name = country.name.common;
+    const capital = country.capital ? country.capital[0] : 'N/A';
+    const flag = country.flags ? country.flags[0] : 'N/A';
+
+    // Print details to the console
+    console.log(`Name: ${name}, Capital: ${capital}, Flag: ${flag}`);
+  });
+})
+.catch(error => console.error('Error fetching data:', error));
+
+
+// d.	Print the total population of countries using reduce function
+// Fetch the data from the API
+fetch('https://restcountries.com/v3.1/all')
+  .then(response => response.json())
+  .then(data => {
+    // Use reduce to calculate the total population
+    const totalPopulation = data.reduce((accumulator, country) => {
+      // Add the population of each country to the accumulator
+      return accumulator + (country.population || 0);
+    }, 0);
+
+    // Log the total population
+    console.log('Total Population:', totalPopulation);
+  })
+  .catch(error => console.error('Error fetching data:', error));
+
+
+
+// e.	Print the country that uses US dollars as currency.
+// Fetch the data from the API
+fetch('https://restcountries.com/v3.1/all')
+  .then(response => response.json())
+  .then(data => {
+    // Find the first country that uses US dollars as currency
+    const countryWithUSD = data.find(country => country.currencies && country.currencies.USD);
+
+    // Log the result
+    if (countryWithUSD) {
+      console.log('Country that uses US dollars:', countryWithUSD.name.common);
+    } else {
+      console.log('No country uses US dollars as currency.');
+    }
+  })
+  .catch(error => console.error('Error fetching data:', error));
